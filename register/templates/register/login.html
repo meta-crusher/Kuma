@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>SignUp</title>
+    </head>
+    <body>
+        <form action = "{% url 'homepage:home' %}" method = "POST">
+            {% csrf_token %}
+            
+            <label for = "Email">Enter your E-Mail</label>
+            <input type = 'text' name = 'Email' id = 'Email'><br>
+            <label for = "password">Enter your Password</label>
+            <input type = 'Password' name = 'Password' id = 'Password'><br>
+            <input type = "submit" value = "Log In">
+        </form>
+    </body>
+</html>
