@@ -1,9 +1,9 @@
 <html>
     <head>
-        <title>SignUp</title>
+        <title>LogIn</title>
     </head>
     <body>
-        <form action = "{% url 'homepage:home' %}" method = "POST">
+        <form action = "{% url 'register:login' %}" method = "POST">
             {% csrf_token %}
             
             <label for = "Email">Enter your E-Mail</label>

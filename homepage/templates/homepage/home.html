@@ -4,5 +4,30 @@
     </head>
     <body>
         <p>Thank u for visiting here.........!</p>
+        <div id = 'registration' style = "display: {{ in }};">
+            <a href = "{% url 'register:login' %}">Login</a>
+            <a href = "{% url 'register:signup' %}">Signup</a>
+        </div>
+        <div id = 'out' style = "display: {{ out }}; " >
+            <a href = "{% url 'homepage:logout' %}">LogOut</a>
+        </div>
+
+        <div id = "messages" style = "display: {{ out }};">
+            <form action = "{% url 'homepage:msg' %}" method = "POST">
+                {% csrf_token %}
+            <label for = 'msg'>Enter your message</label>
+            <input type = "text" name = 'msg'>
+            <input type = "submit" value = "Enter">
+            </form>
+        </div>
+        
+        <div id = "showMessages" style = "display: {{ out }};">
+            <p><strong>Messages by {{ user }}:</strong><br>
+            {% for i in message %}
+                <p>{{ i.mMsg }}</p>
+            {% endfor %}
+            </p>
+        </div>
+    </div>
     </body>
 </html>

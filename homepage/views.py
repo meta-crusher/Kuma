@@ -1,26 +1,51 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from register.models import User
+from register.models import User, Message
 
 def home(request):
 
-    if(request.method == 'POST'):
-        Email = request.POST.get('Email')
-        Pass = request.POST.get('Password')
+    try:
+        request.session['semail']
+        q = User.objects.get(mEmail = request.session['semail'])
+        lmn = Message.objects.filter(mEmail = q)
 
-        a = User.objects.get(mEmail = Email)
-        if(a.mPassword == Pass):
-            request.session['semail'] = Email
-            request.session['spass'] = Pass
-            return HttpResponse("logged in")
-        else:
-            return HttpResponse("enter password correctly")
-
+        context = {
+            'in':'none',
+            'out':'block',
+            'message':lmn,
+            'user': request.session['semail'],
+        }
+        return render(request, 'homepage/home.html',context)
+    except:
+        context = {
+            'in':'block',
+            'out':'none',
+        }
+        return render(request, 'homepage/home.html',context)
+        
+def logout(request):
     try:
         del request.session['semail']
         del request.session['spass']
-        return HttpResponse("Welcome again")
-    except:
-        return HttpResponse("Welcome to the jungle")
-        
+    finally:
+        return redirect('/')
+
+def msg(request):
+    try:
+        print("I not came inside")
+        request.session['semail']
+        print(request.method)
+        if(request.method == 'POST'):
+            msg = request.POST.get('msg')
+            email = request.session['semail']
+
+            print(msg, email)
+
+            q = User.objects.get(mEmail = email)
+            print(q)
+            p = Message.objects.create(mEmail = q, mMsg = msg)
+            p.save()
+            return redirect('/')
+    finally:
+        return redirect('/')
