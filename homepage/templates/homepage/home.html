@@ -1,33 +1,48 @@
 <html>
-    <head>
-        <title>SignUp</title>
-    </head>
-    <body>
-        <p>Thank u for visiting here.........!</p>
-        <div id = 'registration' style = "display: {{ in }};">
-            <a href = "{% url 'register:login' %}">Login</a>
-            <a href = "{% url 'register:signup' %}">Signup</a>
+<head><title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/home.css'%}">
+</head>
+<body bgcolor="#bb98ff">
+<!--Navbar Started-->
+    <div id = 'nav'>
+        <a href = "{% url 'homepage:home' %}">
+        <div id = "logo">
+            COMPANY
+        </div></a>
+        <div id = "func">
+        <div id = "register" style = "display:{{ in }};">
+            <a href = "{% url 'register:login' %}">
+            <div id = "in">
+                Log In
+            </div></a>
+             <a href = "{% url 'register:signup' %}">
+             <div id = "up">
+               Sign Up
+             </div></a>
         </div>
-        <div id = 'out' style = "display: {{ out }}; " >
-            <a href = "{% url 'homepage:logout' %}">LogOut</a>
+        <div id = "inside" style = "display:{{ out }};">
+            <a href = "{% url 'homepage:profile' %}">
+            <div id = "profile">
+                Profile
+            </div></a>
+             <a href = "{% url 'homepage:logout' %}">
+             <div id = "out">
+               Log Out
+             </div></a>
         </div>
-
-        <div id = "messages" style = "display: {{ out }};">
-            <form action = "{% url 'homepage:msg' %}" method = "POST">
-                {% csrf_token %}
-            <label for = 'msg'>Enter your message</label>
-            <input type = "text" name = 'msg'>
-            <input type = "submit" value = "Enter">
-            </form>
-        </div>
-        
-        <div id = "showMessages" style = "display: {{ out }};">
-            <p><strong>Messages by {{ user }}:</strong><br>
-            {% for i in message %}
-                <p>{{ i.mMsg }}</p>
-            {% endfor %}
-            </p>
         </div>
     </div>
-    </body>
+<!--navbar completed-->
+
+
+{% if allow %}
+    <div style = "position: relative; z-index: 0;">
+        {% include 'homepage/profile.html' %}</div>
+{% else %}
+    <p style = "margin-top: 450;">Thank u all for visiting....</p>
+{% endif %}
+
+</body>
 </html>

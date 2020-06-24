@@ -1,20 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from register.models import User, Message
+from register.models import User
 
 def home(request):
 
     try:
-        request.session['semail']
-        q = User.objects.get(mEmail = request.session['semail'])
-        lmn = Message.objects.filter(mEmail = q)
+        request.session['username']
 
         context = {
             'in':'none',
             'out':'block',
-            'message':lmn,
-            'user': request.session['semail'],
         }
         return render(request, 'homepage/home.html',context)
     except:
@@ -26,26 +22,29 @@ def home(request):
         
 def logout(request):
     try:
-        del request.session['semail']
-        del request.session['spass']
+        del request.session['username']
     finally:
         return redirect('/')
 
-def msg(request):
+def profile(request):
     try:
-        print("I not came inside")
-        request.session['semail']
-        print(request.method)
-        if(request.method == 'POST'):
-            msg = request.POST.get('msg')
-            email = request.session['semail']
-
-            print(msg, email)
-
-            q = User.objects.get(mEmail = email)
-            print(q)
-            p = Message.objects.create(mEmail = q, mMsg = msg)
-            p.save()
-            return redirect('/')
-    finally:
+        m = request.session['username']
+        p = User.objects.get(mUsername = m)
+        print(p.mName)
+        name = p.mName
+        username = p.mUsername
+        email = p.mEmail
+        phone = p.mPhone
+        context = {
+            'name': name,
+            'username': username,
+            'email': email,
+            'phone': phone,
+            'value': 'readonly',
+            'allow': True,
+            'in': 'none',
+            'out': 'block',
+        }
+        return render(request, 'homepage/home.html', context)
+    except:
         return redirect('/')
