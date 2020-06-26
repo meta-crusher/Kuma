@@ -26,24 +26,25 @@
 				<span class="contact100-form-title">
 					Hola {{ username }}
 				</span>
-
+				Name:
 				<div class="wrap-input100 validate-input" >
 					<input class="input100" type="text" name="name" placeholder = "{{name}}" {{value}}>
 					<span class="focus-input100-1"></span>
 					<span class="focus-input100-2"></span>
 				</div>
-
+				Username:
 				<div class="wrap-input100 validate-input">
-					<input class="input100" type="text" name="username" placeholder = "{{username}}" {{value}}>
+					<input class="input100" type="text" name="username" placeholder = "{{username}}" readonly>
 					<span class="focus-input100-1"></span>
 					<span class="focus-input100-2"></span>
 				</div>
-
+				Email:
 				<div class="wrap-input100 validate-input">
 					<input class="input100" type="text" name="email" placeholder = "{{email}}" {{value}}>
 					<span class="focus-input100-1"></span>
 					<span class="focus-input100-2"></span>
 				</div>
+				Mobile Number:
 				<div class="wrap-input100 validate-input">
 					<input class="input100" type="text" name="phone" placeholder = "{{phone}}" {{value}}>
 					<span class="focus-input100-1"></span>
@@ -51,10 +52,11 @@
 				</div>
 
 				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn">
-						Change
-					</button>
+					<input type = "submit" class="contact100-form-btn" name = "submit" value = "{{ valname }}">
+
+					</input>
 				</div>
+
 			</form>
 		</div>
 	</div>

@@ -30,7 +30,6 @@ def profile(request):
     try:
         m = request.session['username']
         p = User.objects.get(mUsername = m)
-        print(p.mName)
         name = p.mName
         username = p.mUsername
         email = p.mEmail
@@ -44,7 +43,29 @@ def profile(request):
             'allow': True,
             'in': 'none',
             'out': 'block',
+            'valname':'Change',
         }
+        if 'Save' == request.POST.get('submit'):
+            context['value'] = 'readonly'
+            context['valname'] = 'Change'
+            p = User.objects.get(mUsername = m)
+            if request.POST.get('name').strip() != '':
+                p.mName = request.POST.get('name')
+                p.save()
+                context['name'] = p.mName
+            if request.POST.get('email').strip() != '':
+                p.mEmail = request.POST.get('email')
+                p.save()
+                context['email'] = p.mEmail
+            if request.POST.get('phone').strip() != '':
+                p.mPhone = request.POST.get('phone')
+                p.save()
+                context['phone'] = p.mPhone
+
+        elif request.POST.get('submit'):
+            context['value'] = ''
+            context['valname'] = 'Save'
         return render(request, 'homepage/home.html', context)
     except:
         return redirect('/')
+
