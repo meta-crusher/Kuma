@@ -8,12 +8,13 @@ def home(request):
     try:
         request.session['username']
 
+        print("logged in")
         context = {
             'in':'none',
             'out':'block',
         }
         if request.method == 'GET':
-            if request.GET.get('songText').strip() != '':
+            if ((request.GET.get('songText') is not None) and (request.GET.get('songText').strip() != '')):
                 context['songname'] = request.GET.get('songText')
                 context['visual'] = 'block'
             else:
