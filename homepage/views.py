@@ -12,6 +12,13 @@ def home(request):
             'in':'none',
             'out':'block',
         }
+        if request.method == 'GET':
+            if request.GET.get('songText').strip() != '':
+                context['songname'] = request.GET.get('songText')
+                context['visual'] = 'block'
+            else:
+                context['visual'] = 'none'
+
         return render(request, 'homepage/home.html',context)
     except:
         context = {

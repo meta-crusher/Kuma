@@ -40,11 +40,16 @@
 {% if allow %}
     <div style = "position: relative; z-index: 0;">
         {% include 'homepage/profile.html' %}</div>
-{% else %}
-    <iframe style = "margin-top:450; ;" id="ytplayer" type="text/html" width="640" height="360"
-  src="https://www.youtube.com/embed?listType=search&list=comeandgetit"
-  frameborder="0"></iframe>
 {% endif %}
+
+<form id = "songSearch" action="{% url 'homepage:home' %}" method = "get" style = "margin-top:200; ;">
+    <label for = "songText">Enter name of a song</label>
+    <input type = "text" name = "songText">
+    <input type = "submit" value = "search">
+</form>
+<iframe style = "margin-top:10; display = {{ visual }} ;" id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed?listType=search&list={{songname}}"
+  frameborder="0"></iframe>
 
 </body>
 </html>
